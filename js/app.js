@@ -4,6 +4,7 @@
  //==Array holding all memory card classes====================================================================
  let memoryCards = [ "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor",
                       "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube" ];
+ let openCards = [ ];                             // an array holding all open cards
 
  let myDeck = document.querySelector('.deck');    // selecting the deck element from the DOM
 
@@ -34,10 +35,10 @@
    for( let i = 0; i < memoryCards.length; i++ )
    {
      //==Create element to hold card type=====================================================================
-     let cardElement = document.createElement('LI');          // creating a list element to put card info in
+     let cardElement = document.createElement( 'LI' );          // creating a list element to put card info in
      cardElement.classList.add( 'card' );
 
-     let cardTypeElement = document.createElement('I');       // creating an i element to hold card type
+     let cardTypeElement = document.createElement( 'I' );       // creating an i element to hold card type
      cardTypeElement.classList.add( 'fa' );
      cardTypeElement.classList.add( memoryCards[i] );
      cardElement.appendChild( cardTypeElement );
@@ -72,9 +73,9 @@ function shuffle(array)
 
 /*
  * set up the event listener for a card. If a card is clicked:
- *  - display the card's symbol (put this functionality in another function that you call from this one)
- *  - add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  - if the list already has another card, check to see if the two cards match
+ *  ^ display the card's symbol (put this functionality in another function that you call from this one)
+ *  ^ add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
+ *  ^ if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
@@ -87,6 +88,35 @@ function shuffle(array)
  *==========================================================================================================*/
 function cardClick(event)
 {
-  event.target.classList.toggle('open');
-  event.target.classList.toggle('show');
+  let currentCard = event.target;       // saving current clicked card
+  currentCard.classList.toggle('open');
+  currentCard.classList.toggle('show');
+
+  addOpenCard( currentCard );
+}
+
+/*============================================================================================================
+ * addOpenCard Function
+ *   - Adds the new open card to the openCards array
+ *   - If there are 2 or more cards open, call the checkMatch function
+ *==========================================================================================================*/
+function addOpenCard( newOpenCard )
+{
+  openCards.push( newOpenCard );
+
+  if( openCards.length >= 2 )
+  {
+    checkMatch( );
+  }
+}
+
+/*============================================================================================================
+ * checkMatch Function
+ *   - This function checks to see if the two open cards are a match
+ *   - If the cards are a match, they are locked in the open state
+ *   - If the cards are not a match, the removeOpenCard function is called
+ *==========================================================================================================*/
+function checkMatch()
+{
+  
 }
