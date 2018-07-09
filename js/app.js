@@ -3,6 +3,7 @@
  *==========================================================================================================*/
  let memoryCards = [ "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor",
                       "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube" ];
+const myDeck = document.querySelector('.deck');
 
 /*============================================================================================================
  * displayCards Function
@@ -34,11 +35,14 @@
    }
 
    //==Add cards' HTML to page================================================================================
-   const deck = document.querySelector('.deck');            // saving the deck element
-   deck.appendChild( cardFragment );
+   //const deck = document.querySelector('.deck');            // saving the deck element
+   myDeck.appendChild( cardFragment );
  }
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+/*============================================================================================================
+ * Shuffle function from http://stackoverflow.com/a/2450976
+ * Dynamically shuffles items in an array.
+*==========================================================================================================*/
 function shuffle(array)
 {
     var currentIndex = array.length, temporaryValue, randomIndex;
@@ -66,11 +70,12 @@ function shuffle(array)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
- const myDeck = document.querySelector('.deck');
- myDeck.addEventListener( 'click', cardClick );
+//const myDeck = document.querySelector('.deck');
+myDeck.addEventListener( 'click', cardClick );
 
- function cardClick(event)
- {
-   event.target.classList.toggle('open');
-   event.target.classList.toggle('show');
- }
+
+function cardClick(event)
+{
+  event.target.classList.toggle('open');
+  event.target.classList.toggle('show');
+}
