@@ -1,39 +1,39 @@
 /*============================================================================================================
  * A list that holds all memory card names
- ===========================================================================================================*/
- let memoryCards = [ "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube",
-                      "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb",
-                      "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o",
-                      "fa fa-cube" ];
-displayCards();
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+ *==========================================================================================================*/
+ let memoryCards = [ "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor",
+                      "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube" ];
+
+/*============================================================================================================
+ * displayCards Function
+ *   - Shuffles memory card arry using Shuffle function
+ *   - Loops through each card to create its HTML and classes and appends to a document fragment
+ *   - Adds the document fragment of memory card HTML to the deck element already in the HTML
+ *==========================================================================================================*/
  function displayCards( )
  {
-   /*==Shuffle memoryCards==================================================================================*/
+   //==Shuffle memoryCards====================================================================================
    memoryCards = shuffle(memoryCards);
 
-   /*==Write all memory cards HTML==========================================================================*/
+   //==Write all memory cards HTML============================================================================
    let cardFragment = document.createDocumentFragment();    // HTML document fragment to create cards
 
    for( let i = 0; i < memoryCards.length; i++ )
    {
-     const cardType = memoryCards[i];
+     //==Create element to hold card type=====================================================================
      let cardElement = document.createElement('LI');          // creating a list element to put card info in
      cardElement.classList.add( 'card' );
+
      let cardTypeElement = document.createElement('I');       // creating an i element to hold card type
-     console.log(memoryCards[i]);
-     cardTypeElement.classList.add( );
+     cardTypeElement.classList.add( 'fa' );
+     cardTypeElement.classList.add( memoryCards[i] );
      cardElement.appendChild( cardTypeElement );
 
+     //==Add new cards to document fragment===================================================================
      cardFragment.appendChild( cardElement );
    }
 
-   /*==Add cards' HTML to page==============================================================================*/
+   //==Add cards' HTML to page================================================================================
    const deck = document.querySelector('.deck');            // saving the deck element
    deck.appendChild( cardFragment );
  }
