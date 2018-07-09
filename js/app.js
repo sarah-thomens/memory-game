@@ -1,9 +1,21 @@
 /*============================================================================================================
- * A list that holds all memory card names
+ * Global Variables
  *==========================================================================================================*/
+ //==Array holding all memory card classes====================================================================
  let memoryCards = [ "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor",
                       "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube" ];
-const myDeck = document.querySelector('.deck');
+
+ let myDeck = document.querySelector('.deck');    // selecting the deck element from the DOM
+
+/*============================================================================================================
+ * Event Listeners
+ *==========================================================================================================*/
+ myDeck.addEventListener( 'click', cardClick );     // an event listener for when a card is clicked
+
+/*============================================================================================================
+ * Function Calls
+ *==========================================================================================================*/
+ displayCards();
 
 /*============================================================================================================
  * displayCards Function
@@ -35,7 +47,6 @@ const myDeck = document.querySelector('.deck');
    }
 
    //==Add cards' HTML to page================================================================================
-   //const deck = document.querySelector('.deck');            // saving the deck element
    myDeck.appendChild( cardFragment );
  }
 
@@ -59,7 +70,6 @@ function shuffle(array)
     return array;
 }
 
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -70,10 +80,11 @@ function shuffle(array)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-//const myDeck = document.querySelector('.deck');
-myDeck.addEventListener( 'click', cardClick );
 
-
+/*============================================================================================================
+ * cardClick Function
+ *   - Flips the card that is clicked to the open or closed depending on its current state.
+ *==========================================================================================================*/
 function cardClick(event)
 {
   event.target.classList.toggle('open');
