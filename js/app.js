@@ -1,11 +1,11 @@
 /*============================================================================================================
- * A list that holds all memory cards
+ * A list that holds all memory card names
  ===========================================================================================================*/
-const memoryCards = [ "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube",
+ let memoryCards = [ "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube",
                       "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb",
                       "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o",
                       "fa fa-cube" ];
-
+displayCards();
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -14,9 +14,28 @@ const memoryCards = [ "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "f
  */
  function displayCards( )
  {
-   /*==shuffle memoryCards==================================================================================*/
-   shuffle(memoryCards);
-   console.log( memoryCards);
+   /*==Shuffle memoryCards==================================================================================*/
+   memoryCards = shuffle(memoryCards);
+
+   /*==Write all memory cards HTML==========================================================================*/
+   let cardFragment = document.createDocumentFragment();    // HTML document fragment to create cards
+
+   for( let i = 0; i < memoryCards.length; i++ )
+   {
+     const cardType = memoryCards[i];
+     let cardElement = document.createElement('LI');          // creating a list element to put card info in
+     cardElement.classList.add( 'card' );
+     let cardTypeElement = document.createElement('I');       // creating an i element to hold card type
+     console.log(memoryCards[i]);
+     cardTypeElement.classList.add( );
+     cardElement.appendChild( cardTypeElement );
+
+     cardFragment.appendChild( cardElement );
+   }
+
+   /*==Add cards' HTML to page==============================================================================*/
+   const deck = document.querySelector('.deck');            // saving the deck element
+   deck.appendChild( cardFragment );
  }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
