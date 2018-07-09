@@ -1,4 +1,6 @@
-/*==A list that holds all memory cards======================================================================*/
+/*============================================================================================================
+ * A list that holds all memory cards
+ ===========================================================================================================*/
 const memoryCards = [ "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "fa fa-bolt", "fa fa-cube",
                       "fa fa-anchor", "fa fa-leaf", "fa fa-bicycle", "fa fa-diamond", "fa fa-bomb",
                       "fa fa-leaf", "fa fa-bomb", "fa fa-bolt", "fa fa-bicycle", "fa fa-paper-plane-o",
@@ -10,6 +12,12 @@ const memoryCards = [ "fa fa-diamond", "fa fa-paper-plane-o", "fa fa-anchor", "f
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+ function displayCards( )
+ {
+   /*==shuffle memoryCards==================================================================================*/
+   shuffle(memoryCards);
+   console.log( memoryCards);
+ }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array)
