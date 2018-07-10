@@ -106,8 +106,6 @@ function cardClick(event)
 function addOpenCard( newOpenCard )
 {
   //==Adding the new card to the openCards array==============================================================
-  //let cardType = newOpenCard.children[0].classList[1];
-  //console.log(cardType);
   openCards.push( newOpenCard );
   console.log( openCards );
 
@@ -141,8 +139,10 @@ function checkMatch()
     {
       openCards[i].classList.remove('open');
       openCards[i].classList.remove('show');
-
-      openCards = [ ];
     }
+
+    //==Remove the two unmatched cards from openCards array===================================================
+    openCards.pop();
+    openCards.pop();
   }
 }
