@@ -89,9 +89,12 @@ function shuffle(array)
 function cardClick(event)
 {
   let currentCard = event.target;       // saving current clicked card
+
+  //==Setting card classes to open and show to make card open on screen=======================================
   currentCard.classList.toggle('open');
   currentCard.classList.toggle('show');
 
+  //==Calling addOpenCard funtion to add the card to the openCards array======================================
   addOpenCard( currentCard );
 }
 
@@ -102,8 +105,11 @@ function cardClick(event)
  *==========================================================================================================*/
 function addOpenCard( newOpenCard )
 {
+  //==Adding the new card to the openCards array==============================================================
   openCards.push( newOpenCard );
+  console.log( openCards );
 
+  //==If there are 2 or more cards in the openCards array call checkMatch function============================
   if( openCards.length >= 2 )
   {
     checkMatch( );
@@ -118,5 +124,24 @@ function addOpenCard( newOpenCard )
  *==========================================================================================================*/
 function checkMatch()
 {
-  
+  let cardOneType = openCards[0].children;
+  //console.log( openCards[1].children.classList );
+  cardOne = openCards[0];
+  cardTwo = openCards[1];
+
+  //==If the two cards are the same, lock cards in open position==============================================
+  if( openCards[0].children.classList == openCards[1].children.classList )
+  {
+    console.log( "It's a Match! Lock Cards in Open Position!" );
+  }
+  else
+  {
+    for( let i = 0; i < openCards.length; i++ )
+    {
+      openCards[i].classList.remove('open');
+      openCards[i].classList.remove('show');
+
+      openCards = [ ];
+    }
+  }
 }
