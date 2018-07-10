@@ -5,6 +5,8 @@
  let memoryCards = [ "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor",
                       "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube" ];
  let openCards = [ ];                             // an array holding all open cards
+ let clickCardCount = 0;                          // a count for how many cards have been clicked
+ let openCardCount = 0;                           // a count for how many cards are open
 
  let myDeck = document.querySelector('.deck');    // selecting the deck element from the DOM
 
@@ -94,6 +96,10 @@ function cardClick(event)
   currentCard.classList.toggle('open');
   currentCard.classList.toggle('show');
 
+  //==Adding to cardCard to keep track of how many cards have been clicked====================================
+  clickCardCount++;
+  console.log( "Card Count = " + clickCardCount );
+
   //==Calling addOpenCard funtion to add the card to the openCards array======================================
   addOpenCard( currentCard );
 }
@@ -110,9 +116,12 @@ function addOpenCard( newOpenCard )
   console.log( openCards );
 
   //==If there are 2 or more cards in the openCards array call checkMatch function============================
-  if( openCards.length >= 2 )
+  if( clickCardCount >= 2 )
   {
     checkMatch( );
+
+    //==Reset the card count for how many cards have been clicked=============================================
+    clickCardCount = 0;
   }
 }
 
@@ -124,18 +133,23 @@ function addOpenCard( newOpenCard )
  *==========================================================================================================*/
 function checkMatch()
 {
-  let cardOneType = openCards[0].children[0].classList[1];
-  let cardTwoType = openCards[1].children[0].classList[1];
+  let cardOneType = openCards[openCardCount].children[0].classList[1];      // class for first card to match
+  let cardTwoType = openCards[openCardCount + 1].children[0].classList[1];  // class for second card to match
 
+  console.log( "Card One: " + cardOneType + "\nCard Two: " + cardTwoType );
   //==If the two cards are the same, lock cards in open position==============================================
   if( cardOneType === cardTwoType )
   {
     console.log( "It's a Match! Lock Cards in Open Position!" );
+
+    //==Update the open Card Count============================================================================
+    openCardCount += 2;
   }
   //==If the two cards do not match, remove cards from openCards array and close them=========================
   else
   {
-    for( let i = 0; i < openCards.length; i++ )
+    //==for the last two cards added...=======================================================================
+    for( let i = openCardCount; i < openCards.length; i++ )
     {
       openCards[i].classList.remove('open');
       openCards[i].classList.remove('show');
