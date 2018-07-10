@@ -106,6 +106,8 @@ function cardClick(event)
 function addOpenCard( newOpenCard )
 {
   //==Adding the new card to the openCards array==============================================================
+  //let cardType = newOpenCard.children[0].classList[1];
+  //console.log(cardType);
   openCards.push( newOpenCard );
   console.log( openCards );
 
@@ -124,16 +126,15 @@ function addOpenCard( newOpenCard )
  *==========================================================================================================*/
 function checkMatch()
 {
-  let cardOneType = openCards[0].children;
-  //console.log( openCards[1].children.classList );
-  cardOne = openCards[0];
-  cardTwo = openCards[1];
+  let cardOneType = openCards[0].children[0].classList[1];
+  let cardTwoType = openCards[1].children[0].classList[1];
 
   //==If the two cards are the same, lock cards in open position==============================================
-  if( openCards[0].children.classList == openCards[1].children.classList )
+  if( cardOneType === cardTwoType )
   {
     console.log( "It's a Match! Lock Cards in Open Position!" );
   }
+  //==If the two cards do not match, remove cards from openCards array and close them=========================
   else
   {
     for( let i = 0; i < openCards.length; i++ )
