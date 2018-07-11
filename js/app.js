@@ -79,7 +79,7 @@ function shuffle(array)
  *  ^ add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  ^ if the list already has another card, check to see if the two cards match
  *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
+ *    ^ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
@@ -137,6 +137,7 @@ function addOpenCard( newOpenCard )
    {
      openCards[i].classList.remove('open');
      openCards[i].classList.remove('show');
+     openCards[i].classList.remove('wrong');
    }
 
    //==Remove the two unmatched cards from openCards array===================================================
@@ -164,10 +165,13 @@ function checkMatch()
     //==Update the open Card Count============================================================================
     openCardCount += 2;
   }
-  //==If the two cards do not match, remove cards from openCards array and close them=========================
+  //==If the two cards do not match, call the removeOpenCard function after 1 second==========================
   else
   {
-     //setTimeout( removeOpenCard(), 10000 );
-     removeOpenCard();
+    //==Change the background color to red for an incorrect match=============================================
+    openCards[openCardCount].classList.add('wrong');
+    openCards[openCardCount+1].classList.add('wrong');
+    
+    setTimeout( removeOpenCard, 1000 );
   }
 }
