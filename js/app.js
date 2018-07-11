@@ -126,6 +126,25 @@ function addOpenCard( newOpenCard )
 }
 
 /*============================================================================================================
+ * removeOpenCard Function
+ *   - Removes the unmatched cards from the openCards array
+ *   - Closes both cards
+ *==========================================================================================================*/
+ function removeOpenCard( )
+ {
+   //==for the last two cards added...=======================================================================
+   for( let i = openCardCount; i < openCards.length; i++ )
+   {
+     openCards[i].classList.remove('open');
+     openCards[i].classList.remove('show');
+   }
+
+   //==Remove the two unmatched cards from openCards array===================================================
+   openCards.pop();
+   openCards.pop();
+ }
+
+/*============================================================================================================
  * checkMatch Function
  *   - This function checks to see if the two open cards are a match
  *   - If the cards are a match, they are locked in the open state
@@ -148,15 +167,7 @@ function checkMatch()
   //==If the two cards do not match, remove cards from openCards array and close them=========================
   else
   {
-    //==for the last two cards added...=======================================================================
-    for( let i = openCardCount; i < openCards.length; i++ )
-    {
-      openCards[i].classList.remove('open');
-      openCards[i].classList.remove('show');
-    }
-
-    //==Remove the two unmatched cards from openCards array===================================================
-    openCards.pop();
-    openCards.pop();
+     //setTimeout( removeOpenCard(), 10000 );
+     removeOpenCard();
   }
 }
