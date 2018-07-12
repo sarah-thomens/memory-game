@@ -7,6 +7,7 @@
  let openCards = [ ];                             // an array holding all open cards
  let clickCardCount = 0;                          // a count for how many cards have been clicked
  let openCardCount = 0;                           // a count for how many cards are open
+ let cardLock = false;                            // set
 
  let myDeck = document.querySelector('.deck');    // selecting the deck element from the DOM
 
@@ -93,8 +94,8 @@ function cardClick(event)
   let currentCard = event.target;       // saving current clicked card
 
   //==Setting card classes to open and show to make card open on screen=======================================
-  currentCard.classList.toggle('open');
-  currentCard.classList.toggle('show');
+  currentCard.classList.add('open');
+  currentCard.classList.add('show');
 
   //==Adding to cardCard to keep track of how many cards have been clicked====================================
   clickCardCount++;
@@ -171,7 +172,7 @@ function checkMatch()
     //==Change the background color to red for an incorrect match=============================================
     openCards[openCardCount].classList.add('wrong');
     openCards[openCardCount+1].classList.add('wrong');
-    
+
     setTimeout( removeOpenCard, 1000 );
   }
 }
