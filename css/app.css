@@ -116,6 +116,13 @@ h1
     padding: 0;
     display: inline-block;
     margin: 0 5px 0 0;
+    color: gold;
+    font-size: 25px;
+}
+
+.score-panel .stars .grey
+{
+  color: grey;
 }
 
 .score-panel .stars li

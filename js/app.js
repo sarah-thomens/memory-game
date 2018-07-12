@@ -10,10 +10,12 @@
  let cardLocked = false;                            // set the cards to be locked when miss occurs
 
  let moveCounter = 0;                               // setting how many moves a player has made
+ let starCount = 3;                                 // sets the star rating for the player
 
  let myDeck = document.querySelector('.deck');      // selecting the deck element from the DOM
  let restart = document.querySelector('.restart');  // selecting the restart button from the DOM
  let moves = document.querySelector('.moves');      // selecting the move counter from the DOM
+ let stars = document.querySelector('.stars');      // selecting the stars rating from the DOM
 
 /*============================================================================================================
  * Event Listeners
@@ -86,7 +88,7 @@ function shuffle(array)
  *  ^ if the list already has another card, check to see if the two cards match
  *   ^ if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    ^ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
+ *    ^ increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
@@ -201,10 +203,33 @@ function checkMatch()
 /*============================================================================================================
  * increaseMoveCounter Function
  *   - This function will increase the number of moves every time a player tries to make a match
+ *   - Call the starRating function
  *==========================================================================================================*/
  function increaseMoveCounter()
  {
    moves.textContent = ++moveCounter;
+   starRating();
+ }
+
+/*============================================================================================================
+ * starRating Function
+ *   - This function will change the number of stars in the star rating based on the number of moves made.
+ *==========================================================================================================*/
+ function starRating()
+ {
+   if( moveCounter === 8 )
+   {
+     stars.children[2].classList.add('grey');
+     starCount--;
+     console.log(starCount);
+   }
+
+   if( moveCounter === 16 )
+   {
+     stars.children[1].classList.add('grey');
+     starCount--;
+     console.log(starCount);
+   }
  }
 
 /*============================================================================================================
@@ -227,4 +252,11 @@ function checkMatch()
    //==reset move counter to 0================================================================================
    moveCounter = 0;
    moves.textContent = moveCounter;
+
+   //==Reset all stars========================================================================================
+   starCount = 3;
+   for( let i = 0; i < 3; i++ )
+   {
+     stars.children[i].classList.remove('grey');
+   }
  }
