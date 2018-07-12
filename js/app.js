@@ -23,7 +23,7 @@
 
 /*============================================================================================================
  * displayCards Function
- *   - Shuffles memory card arry using Shuffle function
+ *   - Shuffles memory card array using Shuffle function
  *   - Loops through each card to create its HTML and classes and appends to a document fragment
  *   - Adds the document fragment of memory card HTML to the deck element already in the HTML
  *==========================================================================================================*/
@@ -33,7 +33,7 @@
    memoryCards = shuffle(memoryCards);
 
    //==Write all memory cards HTML============================================================================
-   let cardFragment = document.createDocumentFragment();    // HTML document fragment to create cards
+   let cardFragment = document.createDocumentFragment();        // HTML document fragment to create cards
 
    for( let i = 0; i < memoryCards.length; i++ )
    {
@@ -93,16 +93,20 @@ function cardClick(event)
 {
   let currentCard = event.target;       // saving current clicked card
 
-  //==Setting card classes to open and show to make card open on screen=======================================
-  currentCard.classList.add('open');
-  currentCard.classList.add('show');
+  //==if the current card is closed...========================================================================
+  if( !currentCard.classList.contains('open') )
+  {
+    //==Setting card classes to open and show to make card open on screen=====================================
+    currentCard.classList.add('open');
+    currentCard.classList.add('show');
 
-  //==Adding to cardCard to keep track of how many cards have been clicked====================================
-  clickCardCount++;
-  console.log( "Card Count = " + clickCardCount );
+    //==Adding to cardCard to keep track of how many cards have been clicked==================================
+    clickCardCount++;
+    console.log( "Card Count = " + clickCardCount );
 
-  //==Calling addOpenCard funtion to add the card to the openCards array======================================
-  addOpenCard( currentCard );
+    //==Calling addOpenCard funtion to add the card to the openCards array====================================
+    addOpenCard( currentCard );
+  }
 }
 
 /*============================================================================================================
