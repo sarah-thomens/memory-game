@@ -7,7 +7,7 @@
  let openCards = [ ];                             // an array holding all open cards
  let clickCardCount = 0;                          // a count for how many cards have been clicked
  let openCardCount = 0;                           // a count for how many cards are open
- let cardLock = false;                            // set
+ let cardLocked = false;                          // set the cards to be locked when miss occurs
 
  let myDeck = document.querySelector('.deck');    // selecting the deck element from the DOM
 
@@ -94,7 +94,7 @@ function cardClick(event)
   let currentCard = event.target;       // saving current clicked card
 
   //==if the current card is closed and is a li...============================================================
-  if( !currentCard.classList.contains('open') && currentCard.nodeName === 'LI' )
+  if( !currentCard.classList.contains('open') && currentCard.nodeName === 'LI' && !cardLocked )
   {
     //==Setting card classes to open and show to make card open on screen=====================================
     currentCard.classList.add('open');
@@ -137,7 +137,7 @@ function addOpenCard( newOpenCard )
  *==========================================================================================================*/
  function removeOpenCard( )
  {
-   //==for the last two cards added...=======================================================================
+   //==for the last two cards added...========================================================================
    for( let i = openCardCount; i < openCards.length; i++ )
    {
      openCards[i].classList.remove('open');
@@ -145,9 +145,12 @@ function addOpenCard( newOpenCard )
      openCards[i].classList.remove('wrong');
    }
 
-   //==Remove the two unmatched cards from openCards array===================================================
+   //==Remove the two unmatched cards from openCards array====================================================
    openCards.pop();
    openCards.pop();
+
+   //==Unlock all cards after removing of incorrect cards occurs==============================================
+   cardLocked = false;
  }
 
 /*============================================================================================================
@@ -165,7 +168,9 @@ function checkMatch()
   //==If the two cards are the same, lock cards in open position==============================================
   if( cardOneType === cardTwoType )
   {
-    console.log( "It's a Match! Lock Cards in Open Position!" );
+    //==Change background color to green for correct match====================================================
+    openCards[openCardCount].classList.add('match');
+    openCards[openCardCount+1].classList.add('match');
 
     //==Update the open Card Count============================================================================
     openCardCount += 2;
@@ -176,6 +181,9 @@ function checkMatch()
     //==Change the background color to red for an incorrect match=============================================
     openCards[openCardCount].classList.add('wrong');
     openCards[openCardCount+1].classList.add('wrong');
+
+    //==Lock all cards while wrong cards are displayed========================================================
+    cardLocked = true;
 
     setTimeout( removeOpenCard, 1000 );
   }
