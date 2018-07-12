@@ -4,17 +4,22 @@
  //==Array holding all memory card classes====================================================================
  let memoryCards = [ "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor",
                       "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube" ];
- let openCards = [ ];                             // an array holding all open cards
- let clickCardCount = 0;                          // a count for how many cards have been clicked
- let openCardCount = 0;                           // a count for how many cards are open
- let cardLocked = false;                          // set the cards to be locked when miss occurs
+ let openCards = [ ];                               // an array holding all open cards
+ let clickCardCount = 0;                            // a count for how many cards have been clicked
+ let openCardCount = 0;                             // a count for how many cards are open
+ let cardLocked = false;                            // set the cards to be locked when miss occurs
 
- let myDeck = document.querySelector('.deck');    // selecting the deck element from the DOM
+ let moveCounter = 0;                               // setting how many moves a player has made
+
+ let myDeck = document.querySelector('.deck');      // selecting the deck element from the DOM
+ let restart = document.querySelector('.restart');  // selecting the restart button from the DOM
+ let moves = document.querySelector('.moves');      // selecting the move counter from the DOM
 
 /*============================================================================================================
  * Event Listeners
  *==========================================================================================================*/
  myDeck.addEventListener( 'click', cardClick );     // an event listener for when a card is clicked
+ restart.addEventListener( 'click', restartGame );  // an event listener to restart the game
 
 /*============================================================================================================
  * Function Calls
@@ -79,7 +84,7 @@ function shuffle(array)
  *  ^ display the card's symbol (put this functionality in another function that you call from this one)
  *  ^ add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
  *  ^ if the list already has another card, check to see if the two cards match
- *    + if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
+ *   ^ if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
  *    ^ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
@@ -102,7 +107,12 @@ function cardClick(event)
 
     //==Adding to cardCard to keep track of how many cards have been clicked==================================
     clickCardCount++;
-    console.log( "Card Count = " + clickCardCount );
+
+    //==Add move to moveCounter===============================================================================
+    if( clickCardCount === 2 )
+    {
+      increaseMoveCounter();
+    }
 
     //==Calling addOpenCard funtion to add the card to the openCards array====================================
     addOpenCard( currentCard );
@@ -164,7 +174,6 @@ function checkMatch()
   let cardOneType = openCards[openCardCount].children[0].classList[1];      // class for first card to match
   let cardTwoType = openCards[openCardCount + 1].children[0].classList[1];  // class for second card to match
 
-  console.log( "Card One: " + cardOneType + "\nCard Two: " + cardTwoType );
   //==If the two cards are the same, lock cards in open position==============================================
   if( cardOneType === cardTwoType )
   {
@@ -188,3 +197,34 @@ function checkMatch()
     setTimeout( removeOpenCard, 1000 );
   }
 }
+
+/*============================================================================================================
+ * increaseMoveCounter Function
+ *   - This function will increase the number of moves every time a player tries to make a match
+ *==========================================================================================================*/
+ function increaseMoveCounter()
+ {
+   moves.textContent = ++moveCounter;
+ }
+
+/*============================================================================================================
+ * restartGame Function
+ *   - This function restarts the game
+ *   - The cards are reshuffled and displayed on the page
+ *   - The stars, timer, and number of moves are reset
+ *==========================================================================================================*/
+ function restartGame()
+ {
+   //==Clear out the deck=====================================================================================
+   while( myDeck.firstChild )
+   {
+     myDeck.removeChild(myDeck.firstChild);
+   }
+
+   //==Reshuffle cards and display them by calling displayCards function======================================
+   displayCards();
+
+   //==reset move counter to 0================================================================================
+   moveCounter = 0;
+   moves.textContent = moveCounter;
+ }
