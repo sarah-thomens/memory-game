@@ -93,8 +93,8 @@ function cardClick(event)
 {
   let currentCard = event.target;       // saving current clicked card
 
-  //==if the current card is closed...========================================================================
-  if( !currentCard.classList.contains('open') )
+  //==if the current card is closed and is a li...============================================================
+  if( !currentCard.classList.contains('open') && currentCard.nodeName === 'LI' )
   {
     //==Setting card classes to open and show to make card open on screen=====================================
     currentCard.classList.add('open');
