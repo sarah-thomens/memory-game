@@ -14,14 +14,16 @@
 
  let startTimer = new Date().getTime();             // setting the start time for the game
  let timeElapsed = 0;                               // setting the timer to start at 0 seconds
- let myMinutes = 0;                                   // setting the minutes to start at 0
+ let myMinutes = 0;                                 // setting the minutes to start at 0
 
  let myDeck = document.querySelector('.deck');      // selecting the deck element from the DOM
  let restart = document.querySelector('.restart');  // selecting the restart button from the DOM
  let moves = document.querySelector('.moves');      // selecting the move counter from the DOM
  let stars = document.querySelector('.stars');      // selecting the stars rating from the DOM
  let minutes = document.querySelector('.minutes');  // selecting the minutes from the DOM
- let seconds = document.querySelector('.seconds');   // selecting the seconds from the DOM
+ let seconds = document.querySelector('.seconds');  // selecting the seconds from the DOM
+ let modal = document.querySelector('.modal');      // selecting the modal from the DOM
+ let close = document.querySelector('.close');      // selecting the close button from the DOM
 
 /*============================================================================================================
  * Event Listeners
@@ -32,8 +34,26 @@
 /*============================================================================================================
  * Function Calls
  *==========================================================================================================*/
- displayCards();
+//==Display the newly shuffled cards to the window============================================================
+ displayCards( );
+
+ //==Start the timer for the game=============================================================================
  window.setInterval( setTimer, 1000 );
+
+ //==When the x is clicked, close the modal===================================================================
+ close.onclick = function( )
+               {
+                  modal.style.display = "none";
+               }
+
+ //==When anywhere outside of the modal is clicked, close it==================================================
+ window.onclick = function( event )
+                 {
+                   if( event.target == modal )
+                   {
+                      modal.style.display = "none";
+                   }
+                 }
 
 /*============================================================================================================
  * displayCards Function
@@ -44,10 +64,10 @@
  function displayCards( )
  {
    //==Shuffle memoryCards====================================================================================
-   memoryCards = shuffle(memoryCards);
+   memoryCards = shuffle( memoryCards );
 
    //==Write all memory cards HTML============================================================================
-   let cardFragment = document.createDocumentFragment();        // HTML document fragment to create cards
+   let cardFragment = document.createDocumentFragment( );       // HTML document fragment to create cards
 
    for( let i = 0; i < memoryCards.length; i++ )
    {
@@ -69,16 +89,17 @@
  }
 
 /*============================================================================================================
- * Shuffle function from http://stackoverflow.com/a/2450976
- * Dynamically shuffles items in an array.
+ * Shuffle function
+ *   - From http://stackoverflow.com/a/2450976
+ *   - Dynamically shuffles items in an array
 *==========================================================================================================*/
-function shuffle(array)
+function shuffle( array )
 {
     var currentIndex = array.length, temporaryValue, randomIndex;
 
-    while (currentIndex !== 0)
+    while( currentIndex !== 0 )
     {
-        randomIndex = Math.floor(Math.random() * currentIndex);
+        randomIndex = Math.floor( Math.random( ) * currentIndex );
         currentIndex -= 1;
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
@@ -88,22 +109,11 @@ function shuffle(array)
     return array;
 }
 
-/*
- * set up the event listener for a card. If a card is clicked:
- *  ^ display the card's symbol (put this functionality in another function that you call from this one)
- *  ^ add the card to a *list* of "open" cards (put this functionality in another function that you call from this one)
- *  ^ if the list already has another card, check to see if the two cards match
- *   ^ if the cards do match, lock the cards in the open position (put this functionality in another function that you call from this one)
- *    ^ if the cards do not match, remove the cards from the list and hide the card's symbol (put this functionality in another function that you call from this one)
- *    ^ increment the move counter and display it on the page (put this functionality in another function that you call from this one)
- *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
- */
-
 /*============================================================================================================
  * cardClick Function
  *   - Flips the card that is clicked to the open or closed depending on its current state.
  *==========================================================================================================*/
-function cardClick(event)
+function cardClick( event )
 {
   let currentCard = event.target;       // saving current clicked card
 
@@ -120,7 +130,7 @@ function cardClick(event)
     //==Add move to moveCounter===============================================================================
     if( clickCardCount === 2 )
     {
-      increaseMoveCounter();
+      increaseMoveCounter( );
     }
 
     //==Calling addOpenCard funtion to add the card to the openCards array====================================
@@ -137,7 +147,6 @@ function addOpenCard( newOpenCard )
 {
   //==Adding the new card to the openCards array==============================================================
   openCards.push( newOpenCard );
-  console.log( openCards );
 
   //==If there are 2 or more cards in the openCards array call checkMatch function============================
   if( clickCardCount >= 2 )
@@ -165,8 +174,8 @@ function addOpenCard( newOpenCard )
    }
 
    //==Remove the two unmatched cards from openCards array====================================================
-   openCards.pop();
-   openCards.pop();
+   openCards.pop( );
+   openCards.pop( );
 
    //==Unlock all cards after removing of incorrect cards occurs==============================================
    cardLocked = false;
@@ -178,7 +187,7 @@ function addOpenCard( newOpenCard )
  *   - If the cards are a match, they are locked in the open state
  *   - If the cards are not a match, the removeOpenCard function is called
  *==========================================================================================================*/
-function checkMatch()
+function checkMatch( )
 {
   let cardOneType = openCards[openCardCount].children[0].classList[1];      // class for first card to match
   let cardTwoType = openCards[openCardCount + 1].children[0].classList[1];  // class for second card to match
@@ -192,6 +201,11 @@ function checkMatch()
 
     //==Update the open Card Count============================================================================
     openCardCount += 2;
+
+    if( openCardCount === 16 )
+    {
+      modal.style.display = "block";
+    }
   }
   //==If the two cards do not match, call the removeOpenCard function after 1 second==========================
   else
@@ -203,6 +217,7 @@ function checkMatch()
     //==Lock all cards while wrong cards are displayed========================================================
     cardLocked = true;
 
+    //==Remove cards after waiting one second=================================================================
     setTimeout( removeOpenCard, 1000 );
   }
 }
@@ -212,30 +227,37 @@ function checkMatch()
  *   - This function will increase the number of moves every time a player tries to make a match
  *   - Call the starRating function
  *==========================================================================================================*/
- function increaseMoveCounter()
+ function increaseMoveCounter( )
  {
    moves.textContent = ++moveCounter;
-   starRating();
+   starRating( );
  }
 
 /*============================================================================================================
  * starRating Function
  *   - This function will change the number of stars in the star rating based on the number of moves made.
  *==========================================================================================================*/
- function starRating()
+ function starRating( )
  {
+   //==if the player has done 8 moves, remove a star==========================================================
    if( moveCounter === 8 )
    {
      stars.children[2].classList.add('grey');
      starCount--;
-     console.log(starCount);
    }
 
+   //==if the player has done 16 moves, remove a star=========================================================
    if( moveCounter === 16 )
    {
      stars.children[1].classList.add('grey');
      starCount--;
-     console.log(starCount);
+   }
+
+   //==if the player has done 24 moves, remove a star=========================================================
+   if( moveCounter === 24 )
+   {
+     stars.children[0].classList.add('grey');
+     starCount--;
    }
  }
 
@@ -243,34 +265,30 @@ function checkMatch()
   * setTimer Function
   *   - This function sets the game timer
   *=========================================================================================================*/
- function setTimer()
- {
-    let time = new Date().getTime() - startTimer;
+  function setTimer()
+  {
+     let time = new Date().getTime() - startTimer;
 
-    timeElapsed = Math.floor( time / 1000 );
+     timeElapsed = Math.floor( time / 1000 );
 
-    if( timeElapsed < 60 )
-    {
-      if( timeElapsed < 10 )
-      {
-        seconds.textContent = "0" + timeElapsed;
-      }
-      else
-      {
-        seconds.textContent = timeElapsed;
-      }
-    }
-    else if( timeElapsed >= 60 )
-    {
-      timeElapsed = 0;
-      startTimer = new Date().getTime();
-      console.log("timeElapsed = " + timeElapsed );
-      minutes.textContent = ++myMinutes;
-      console.log( "minutes = " + myMinutes );
-      seconds.textContent = "0" + timeElapsed;
-    }
-
-    //console.log( timeElapsed );
+     if( timeElapsed < 60 )
+     {
+       if( timeElapsed < 10 )
+       {
+         seconds.textContent = "0" + timeElapsed;
+       }
+       else
+       {
+         seconds.textContent = timeElapsed;
+       }
+     }
+     else if( timeElapsed >= 60 )
+     {
+       timeElapsed = 0;
+       startTimer = new Date().getTime();
+       minutes.textContent = ++myMinutes;
+       seconds.textContent = "0" + timeElapsed;
+     }
  }
 
 /*============================================================================================================
@@ -279,16 +297,16 @@ function checkMatch()
  *   - The cards are reshuffled and displayed on the page
  *   - The stars, timer, and number of moves are reset
  *==========================================================================================================*/
- function restartGame()
+ function restartGame( )
  {
    //==Clear out the deck=====================================================================================
    while( myDeck.firstChild )
    {
-     myDeck.removeChild(myDeck.firstChild);
+     myDeck.removeChild( myDeck.firstChild );
    }
 
    //==Reshuffle cards and display them by calling displayCards function======================================
-   displayCards();
+   displayCards( );
 
    //==reset move counter to 0================================================================================
    moveCounter = 0;
