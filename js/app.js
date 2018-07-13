@@ -12,10 +12,16 @@
  let moveCounter = 0;                               // setting how many moves a player has made
  let starCount = 3;                                 // sets the star rating for the player
 
+ let startTimer = new Date().getTime();             // setting the start time for the game
+ let timeElapsed = 0;                               // setting the timer to start at 0 seconds
+ let myMinutes = 0;                                   // setting the minutes to start at 0
+
  let myDeck = document.querySelector('.deck');      // selecting the deck element from the DOM
  let restart = document.querySelector('.restart');  // selecting the restart button from the DOM
  let moves = document.querySelector('.moves');      // selecting the move counter from the DOM
  let stars = document.querySelector('.stars');      // selecting the stars rating from the DOM
+ let minutes = document.querySelector('.minutes');  // selecting the minutes from the DOM
+ let seconds = document.querySelector('.seconds');   // selecting the seconds from the DOM
 
 /*============================================================================================================
  * Event Listeners
@@ -27,6 +33,7 @@
  * Function Calls
  *==========================================================================================================*/
  displayCards();
+ window.setInterval( setTimer, 1000 );
 
 /*============================================================================================================
  * displayCards Function
@@ -230,6 +237,40 @@ function checkMatch()
      starCount--;
      console.log(starCount);
    }
+ }
+
+ /*===========================================================================================================
+  * setTimer Function
+  *   - This function sets the game timer
+  *=========================================================================================================*/
+ function setTimer()
+ {
+    let time = new Date().getTime() - startTimer;
+
+    timeElapsed = Math.floor( time / 1000 );
+
+    if( timeElapsed < 60 )
+    {
+      if( timeElapsed < 10 )
+      {
+        seconds.textContent = "0" + timeElapsed;
+      }
+      else
+      {
+        seconds.textContent = timeElapsed;
+      }
+    }
+    else if( timeElapsed >= 60 )
+    {
+      timeElapsed = 0;
+      startTimer = new Date().getTime();
+      console.log("timeElapsed = " + timeElapsed );
+      minutes.textContent = ++myMinutes;
+      console.log( "minutes = " + myMinutes );
+      seconds.textContent = "0" + timeElapsed;
+    }
+
+    //console.log( timeElapsed );
  }
 
 /*============================================================================================================
