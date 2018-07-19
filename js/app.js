@@ -12,9 +12,9 @@
  let moveCounter = 0;                               // setting how many moves a player has made
  let starCount = 3;                                 // sets the star rating for the player
 
- let startTimer = new Date().getTime();             // setting the start time for the game
- let timeElapsed = 0;                               // setting the timer to start at 0 seconds
- let myMinutes = 0;                                 // setting the minutes to start at 0
+ let timerID = null;                                // setting an id for the timer
+ let secondsTimer = 0;                              // setting the timer to start at 0 seconds
+ let minutesTimer = 0;                              // setting the minutes to start at 0
 
  let myDeck = document.querySelector('.deck');      // selecting the deck element from the DOM
  let restart = document.querySelector('.restart');  // selecting the restart button from the DOM
@@ -36,9 +36,6 @@
  *==========================================================================================================*/
 //==Display the newly shuffled cards to the window============================================================
  displayCards( );
-
- //==Start the timer for the game=============================================================================
- window.setInterval( setTimer, 1000 );
 
  //==When the x is clicked, close the modal===================================================================
  close.onclick = function( )
@@ -116,6 +113,12 @@ function shuffle( array )
 function cardClick( event )
 {
   let currentCard = event.target;       // saving current clicked card
+
+  //==If this is the first card, start the timer============================================================
+  if( timerID === null )
+  {
+    timerID = window.setInterval( setTimer, 1000 );
+  }
 
   //==if the current card is closed and is a li...============================================================
   if( !currentCard.classList.contains('open') && currentCard.nodeName === 'LI' && !cardLocked )
@@ -204,6 +207,7 @@ function checkMatch( )
 
     if( openCardCount === 16 )
     {
+      window.clearInterval( timerID );
       modal.style.display = "block";
     }
   }
@@ -265,30 +269,28 @@ function checkMatch( )
   * setTimer Function
   *   - This function sets the game timer
   *=========================================================================================================*/
-  function setTimer()
+  function setTimer( )
   {
-     let time = new Date().getTime() - startTimer;
+    if( secondsTimer < 59 )
+    {
+      secondsTimer++;
+    }
+    else
+    {
+      secondsTimer = 0;
+      minutesTimer++;
+    }
 
-     timeElapsed = Math.floor( time / 1000 );
+    if( secondsTimer < 10 )
+    {
+      seconds.textContent = "0" + secondsTimer;
+    }
+    else
+    {
+      seconds.textContent = secondsTimer;
+    }
 
-     if( timeElapsed < 60 )
-     {
-       if( timeElapsed < 10 )
-       {
-         seconds.textContent = "0" + timeElapsed;
-       }
-       else
-       {
-         seconds.textContent = timeElapsed;
-       }
-     }
-     else if( timeElapsed >= 60 )
-     {
-       timeElapsed = 0;
-       startTimer = new Date().getTime();
-       minutes.textContent = ++myMinutes;
-       seconds.textContent = "0" + timeElapsed;
-     }
+    minutes.textContent = minutesTimer;
  }
 
 /*============================================================================================================
@@ -318,4 +320,13 @@ function checkMatch( )
    {
      stars.children[i].classList.remove('grey');
    }
+
+   //==Reset the timer========================================================================================
+   window.clearInterval( timerID );
+   minutesTimer = 0;
+   secondsTimer = 0;
+   timerID = null;
+
+   seconds.textContent = "0" + secondsTimer;
+   minutes.textContent = minutesTimer;
  }
