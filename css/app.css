@@ -158,10 +158,10 @@ h1
 /* The Modal (background) */
 .modal
 {
-    display: none;
+    display: block;
     position: fixed;
     z-index: 1;
-    padding-top: 100px;
+    padding-top: 300px;
     left: 0;
     top: 0;
     width: 100%;
@@ -174,26 +174,20 @@ h1
 .modal-content
 {
     background-color: #fefefe;
-    padding-top: 100px;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
+    width: 35%;
 }
 
-/* The Close Button */
-.close
+.new-game-button
 {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-}
-
-.close:hover,
-.close:focus
-{
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+  border: dark-grey 2px;
+  border-radius: 10px;
+  background-color: green;
+  color: white;
+  margin: auto;
+  line-height: 20px;
+  text-align: center;
+  width: 100px;
 }

@@ -4,26 +4,28 @@
  //==Array holding all memory card classes====================================================================
  let memoryCards = [ "fa-diamond", "fa-paper-plane-o", "fa-anchor", "fa-bolt", "fa-cube", "fa-anchor",
                       "fa-leaf", "fa-bicycle", "fa-diamond", "fa-bomb", "fa-leaf", "fa-bomb", "fa-bolt", "fa-bicycle", "fa-paper-plane-o", "fa-cube" ];
- let openCards = [ ];                               // an array holding all open cards
- let clickCardCount = 0;                            // a count for how many cards have been clicked
- let openCardCount = 0;                             // a count for how many cards are open
- let cardLocked = false;                            // set the cards to be locked when miss occurs
+ let openCards = [ ];                                     // an array holding all open cards
+ let clickCardCount = 0;                                  // a count for how many cards have been clicked
+ let openCardCount = 0;                                   // a count for how many cards are open
+ let cardLocked = false;                                  // set the cards to be locked when miss occurs
 
- let moveCounter = 0;                               // setting how many moves a player has made
- let starCount = 3;                                 // sets the star rating for the player
+ let moveCounter = 0;                                     // setting how many moves a player has made
+ let starCount = 3;                                       // sets the star rating for the player
 
- let timerID = null;                                // setting an id for the timer
- let secondsTimer = 0;                              // setting the timer to start at 0 seconds
- let minutesTimer = 0;                              // setting the minutes to start at 0
+ let timerID = null;                                      // setting an id for the timer
+ let secondsTimer = 0;                                    // setting the timer to start at 0 seconds
+ let minutesTimer = 0;                                    // setting the minutes to start at 0
 
- let myDeck = document.querySelector('.deck');      // selecting the deck element from the DOM
- let restart = document.querySelector('.restart');  // selecting the restart button from the DOM
- let moves = document.querySelector('.moves');      // selecting the move counter from the DOM
- let stars = document.querySelector('.stars');      // selecting the stars rating from the DOM
- let minutes = document.querySelector('.minutes');  // selecting the minutes from the DOM
- let seconds = document.querySelector('.seconds');  // selecting the seconds from the DOM
- let modal = document.querySelector('.modal');      // selecting the modal from the DOM
- let close = document.querySelector('.close');      // selecting the close button from the DOM
+ let myDeck = document.querySelector('.deck');            // selecting the deck element from the DOM
+ let restart = document.querySelector('.restart');        // selecting the restart button from the DOM
+ let moves = document.querySelector('.moves');            // selecting the move counter from the DOM
+ let stars = document.querySelector('.stars');            // selecting the stars rating from the DOM
+ let minutes = document.querySelector('.minutes');        // selecting the minutes from the DOM
+ let seconds = document.querySelector('.seconds');        // selecting the seconds from the DOM
+ let modal = document.querySelector('.modal');            // selecting the modal from the DOM
+ let finalTime = document.querySelector('.final-time');   // selecting the final time display from the DOM
+ let finalStars = document.querySelector('.final-stars');  // selection the final stars display from the DOM
+ let finalMoves = document.querySelector('.final-moves');  // selecting the final moves display from the DOM
 
 /*============================================================================================================
  * Event Listeners
@@ -36,12 +38,6 @@
  *==========================================================================================================*/
 //==Display the newly shuffled cards to the window============================================================
  displayCards( );
-
- //==When the x is clicked, close the modal===================================================================
- close.onclick = function( )
-               {
-                  modal.style.display = "none";
-               }
 
  //==When anywhere outside of the modal is clicked, close it==================================================
  window.onclick = function( event )
@@ -205,10 +201,14 @@ function checkMatch( )
     //==Update the open Card Count============================================================================
     openCardCount += 2;
 
+    //==If every card has been matched...=====================================================================
     if( openCardCount === 16 )
     {
+      //==Stop the timer======================================================================================
       window.clearInterval( timerID );
-      modal.style.display = "block";
+
+      //==Call gameWin function===============================================================================
+      gameWin( );
     }
   }
   //==If the two cards do not match, call the removeOpenCard function after 1 second==========================
@@ -291,6 +291,31 @@ function checkMatch( )
     }
 
     minutes.textContent = minutesTimer;
+ }
+
+/*============================================================================================================
+ * gameWin Function
+ *   - Opens the win game modal box
+ *   - Displays the time, star rating, and moves
+ *   - Can start a new game
+ *==========================================================================================================*/
+ function gameWin( )
+ {
+   //==Open You Win modal box=================================================================================
+   modal.style.display = "block";
+
+   //==Display the final time, moves, and star rating=========================================================
+   if( secondsTimer < 10 )
+   {
+     finalTime.textContent = minutesTimer + ":0" + secondsTimer;
+   }
+   else
+   {
+     finalTime.textContent = minutesTimer + ":" + secondsTimer;
+   }
+   
+   finalMoves.textContent = moveCounter;
+   finalStars.textContent = starCount;
  }
 
 /*============================================================================================================
