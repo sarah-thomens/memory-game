@@ -24,15 +24,15 @@
  let seconds = document.querySelector('.seconds');        // selecting the seconds from the DOM
  let modal = document.querySelector('.modal');            // selecting the modal from the DOM
  let finalTime = document.querySelector('.final-time');   // selecting the final time display from the DOM
- let finalStars = document.querySelector('.final-stars');  // selecting the final stars display from the DOM
- let finalMoves = document.querySelector('.final-moves');  // selecting the final moves display from the DOM
+ let finalStars = document.querySelector('.final-stars'); // selecting the final stars display from the DOM
+ let finalMoves = document.querySelector('.final-moves'); // selecting the final moves display from the DOM
  let newGameButton = document.querySelector('.new-game-button');  // selecting the new game button from DOM
 
 /*============================================================================================================
  * Event Listeners
  *==========================================================================================================*/
- myDeck.addEventListener( 'click', cardClick );     // an event listener for when a card is clicked
- restart.addEventListener( 'click', restartGame );  // an event listener to restart the game
+ myDeck.addEventListener( 'click', cardClick );           // an event listener for when a card is clicked
+ restart.addEventListener( 'click', restartGame );        // an event listener to restart the game
  newGameButton.addEventListener( 'click', restartGame );  // an event listener to restart the game
 
 /*============================================================================================================
