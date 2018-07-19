@@ -22,7 +22,7 @@ body
 body
 {
     background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
 }
 
 .container
@@ -35,8 +35,10 @@ body
 
 h1
 {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Arial Rounded MT Bold', sans-serif;
     font-weight: 300;
+    font-size: 40px;
+    color: mediumorchid;
 }
 
 /*
@@ -110,6 +112,7 @@ h1
     width: 660px;
     margin-bottom: 10px;
     line-height: 25px;
+    color: mediumorchid;
 }
 
 .score-panel .stars
@@ -153,6 +156,7 @@ h1
     cursor: pointer;
     font-size: 25px;
     padding: 5px;
+    color: darkturquoise;
 }
 
 /* The Modal (background) */
@@ -175,19 +179,43 @@ h1
 {
     background-color: #fefefe;
     margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
     width: 35%;
+}
+
+.modal-header
+{
+  background-color: darkturquoise;
+  color: white;
+  font-size: 35px;
+  font-weight: bold;
+  text-align: center;
+  padding: 20px;
+}
+
+.modal-body
+{
+  color: mediumorchid;
+  text-align: center;
+  font-size: 20px;
+  padding: 15px;
+}
+
+.button
+{
+  text-align: center;
+  padding: 10px;
 }
 
 .new-game-button
 {
   border: dark-grey 2px;
   border-radius: 10px;
-  background-color: green;
+  background-color: darkturquoise;
   color: white;
-  margin: auto;
-  line-height: 20px;
+  font-family: 'Arial Rounded MT Bold', sans-sans-serif;
+  line-height: 3px;
   text-align: center;
   width: 100px;
+  height: 25px;
+  cursor: pointer;
 }
