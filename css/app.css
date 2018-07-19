@@ -37,7 +37,7 @@ h1
 {
     font-family: 'Arial Rounded MT Bold', sans-serif;
     font-weight: 300;
-    font-size: 40px;
+    font-size: 5vmin;
     color: mediumorchid;
 }
 
@@ -47,10 +47,10 @@ h1
 
 .deck
 {
-    width: 660px;
-    min-height: 680px;
+    width: 80vmin;
+    min-height: 80vmin;
     background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
+    padding: 3vmin;
     border-radius: 10px;
     box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
     display: flex;
@@ -62,8 +62,8 @@ h1
 
 .deck .card
 {
-    height: 125px;
-    width: 125px;
+    height: 16vmin;
+    width: 16vmin;
     background: #2e3d49;
     font-size: 0;
     color: #ffffff;
@@ -84,21 +84,21 @@ h1
 
 .deck .card.show
 {
-    font-size: 33px;
+    font-size: 5vmin;
 }
 
 .deck .card.match
 {
     cursor: default;
     background: #02ccba;
-    font-size: 33px;
+    font-size: 5vmin;
 }
 
 .deck .card.wrong
 {
     cursor: default;
     background: #ff0000;
-    font-size: 33px;
+    font-size: 5vmin;
 }
 
 /*
@@ -108,22 +108,21 @@ h1
 .score-panel
 {
     text-align: left;
-    font-size: 20px;
-    width: 660px;
-    margin-bottom: 10px;
-    line-height: 25px;
+    font-size: 3vmin;
+    width: 80vmin;
+    margin-bottom: 1vmin;
     color: mediumorchid;
 }
 
 .score-panel .stars
 {
     margin: 0;
-    padding: 5px;
+    padding: 1vmin;
     float: left;
     display: inline-block;
     margin: 0 5px 0 0;
     color: gold;
-    font-size: 25px;
+    font-size: 4vmin;
 }
 
 .score-panel .stars .grey
@@ -139,33 +138,33 @@ h1
 
 .score-panel .moves
 {
-  font-size: 20px;
-  padding: 5px;
+  font-size: 3vmin;
+  padding: 1vmin;
 }
 
 .score-panel .timer
 {
   float: right;
-  padding: 5px;
-  font-size: 20px;
+  padding: 1vmin;
+  font-size: 3vmin;
 }
 
 .score-panel .restart
 {
     float: right;
     cursor: pointer;
-    font-size: 25px;
-    padding: 5px;
+    font-size: 4vmin;
+    padding: 1vmin;
     color: darkturquoise;
 }
 
 /* The Modal (background) */
 .modal
 {
-    display: block;
+    display: none;
     position: fixed;
     z-index: 1;
-    padding-top: 300px;
+    padding-top: 35vmin;
     left: 0;
     top: 0;
     width: 100%;
@@ -186,36 +185,36 @@ h1
 {
   background-color: darkturquoise;
   color: white;
-  font-size: 35px;
+  font-size: 4vmin;
   font-weight: bold;
   text-align: center;
-  padding: 20px;
+  padding: 2vmin;
 }
 
 .modal-body
 {
   color: mediumorchid;
   text-align: center;
-  font-size: 20px;
-  padding: 15px;
+  font-size: 2vmin;
+  padding: 2vmin;
 }
 
 .button
 {
   text-align: center;
-  padding: 10px;
+  padding: 1vmin;
 }
 
 .new-game-button
 {
-  border: dark-grey 2px;
-  border-radius: 10px;
+  border: dark-grey 1vmin;
+  border-radius: 15px;
   background-color: darkturquoise;
   color: white;
   font-family: 'Arial Rounded MT Bold', sans-sans-serif;
-  line-height: 3px;
+  font-size: 1.3vmin;
   text-align: center;
-  width: 100px;
-  height: 25px;
+  width: 10vmin;
+  height: 5vmin;
   cursor: pointer;
 }
