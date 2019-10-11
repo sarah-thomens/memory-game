@@ -4,7 +4,7 @@
 
 * [Instructions](#instructions)
 * [Contributing](#contributing)
-* [External Dependencies] (#external-dependencies)
+* [External Dependencies](#external-dependencies)
 
 ## Instructions
 
@@ -22,5 +22,5 @@ For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## External Dependencies
 
-Memory Card Icon Font: "https://fonts.googleapis.com/css?family=Coda"
-Website Background: '../img/geometry2.png'
+* Memory Card Icon Font: "https://fonts.googleapis.com/css?family=Coda"
+* Website Background: '../img/geometry2.png'
